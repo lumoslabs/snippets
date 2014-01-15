@@ -9,12 +9,17 @@ from dateutil import *
 from model import *
 
 REMINDER = """
-Hey nerd,
+Hey Brainiac,
 
 The kids want to know what you're up to. Don't leave 'em hanging.
+Please reply with your list of items for the week by Friday evening!
+
+Your pal,
+Dr. Scanlon
 """
 
 class ReminderEmail(webapp.RequestHandler):
+    # TODO reject request unless this originates from the cron job
     def get(self):
         all_users = User.all().filter("enabled =", True).fetch(500)
         for user in all_users:
