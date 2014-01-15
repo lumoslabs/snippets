@@ -1,7 +1,7 @@
 import datetime
 
-class Eastern_tzinfo(datetime.tzinfo):
-    """Implementation of the Eastern timezone.
+class Pacific_tzinfo(datetime.tzinfo):
+    """Implementation of the Pacific timezone.
     
     Adapted from http://code.google.com/appengine/docs/python/datastore/typesandpropertyclasses.html
     """
@@ -25,14 +25,14 @@ class Eastern_tzinfo(datetime.tzinfo):
         
     def tzname(self, dt):
         if self.dst(dt) == datetime.timedelta(hours=0):
-            return "EST"
+            return "PST"
         else:
-            return "EDT"
+            return "PDT"
         
         
 def date_for_new_snippet():
     """Return next Monday, unless it is Monday (0) or Tuesday (1)"""
-    today = datetime.datetime.now(Eastern_tzinfo()).date()
+    today = datetime.datetime.now(Pacific_tzinfo()).date()
     if (today.weekday() < 2):
         aligned = today - datetime.timedelta(days=today.weekday())
     else:
@@ -42,5 +42,5 @@ def date_for_new_snippet():
 
 def date_for_retrieval():
     """Always return the most recent Monday."""
-    today = datetime.datetime.now(Eastern_tzinfo()).date()
+    today = datetime.datetime.now(Pacific_tzinfo()).date()
     return today - datetime.timedelta(days=today.weekday())
