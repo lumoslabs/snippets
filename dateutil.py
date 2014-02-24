@@ -44,6 +44,12 @@ def date_for_new_snippet():
 
 
 def date_for_retrieval():
-    """Always return the most recent Friday."""
+    """Always return the most recent Friday.
+
+    Note that this can be today.
+    """
     today = datetime.datetime.now(Pacific_tzinfo()).date()
-    return today - datetime.timedelta(days=(today.weekday() + TARGET_WEEKDAY - 1))
+    if (today.weekday() == TARGET_WEEKDAY):
+        return today
+    else:
+        return today - datetime.timedelta(days=(today.weekday() + TARGET_WEEKDAY - 1))
